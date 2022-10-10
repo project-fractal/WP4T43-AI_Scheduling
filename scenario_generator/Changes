@@ -1,0 +1,241 @@
+Physical
+gen_physical.cpp......grapg creation Grid to circle and swap parameters(minSwitches,maxSwitches)
+
+
+
+
+
+
+Graphs
+G  = TSnap::GenRndGnm<PNGraph>(nodes, 3); - Line32
+
+
+
+sosgen
+line 24
+
+
+// Counting total edges, in-degree, out-degree of each node and total messages in the graph
+
+  int arr1[nodes]; // array storing total edges
+  int arr1_in[nodes]; // array storing in-degree
+  int arr1_out[nodes]; // array storing out-degree
+  int messages = 0; // array storing total messages
+  int a = 0;
+  int b = 0;
+// Initializing the arrays 
+  for (int i = 0; i < nodes; i++)  {
+  	arr1[i] = 0;
+	arr1_in[i] = 0;
+  	arr1_out[i] = 0;
+  }
+
+// Iterating to consider all nodes
+  for (TNGraph::TNodeI NI = G->BegNI(); NI < G->EndNI(); NI++) {
+   
+  	a = NI.GetId(); 
+
+  	for (int i = nodes-1; i >= 0; i--) {
+   
+// Considering Incoming edges 
+		if (G->IsEdge(i,a)) {      
+        		arr1_in[a] +=1;
+			arr1[a] +=1;
+			messages +=1;
+        	} 
+
+// Considering Outgoing edges
+		if (G->IsEdge(a,i)) {
+        		arr1_out[a] +=1;
+			arr1[a] +=1;	
+        	}    
+    	}
+  
+  }
+
+
+// Restricting in & out degree without creating degree zero nodes
+
+// Iterating to consider all nodes
+  for (TNGraph::TNodeI NI = G->BegNI(); NI < G->EndNI(); NI++) {
+   
+  	a = NI.GetId();
+	b = 0;
+
+// Constraining In-degree
+
+	while (arr1_in[a] > in_degree && b < nodes) {
+		if (a == b) {
+    			b +=1 ;	
+        	}
+		if (G->IsEdge(b,a) && arr1[b] > 1){
+        		G->DelEdge(b,a);
+			arr1_in[a] -=1;
+			arr1_out[b] -=1;
+			arr1[b] -=1;
+			arr1[a] -=1;
+			messages -=1;	
+		}
+		b += 1;
+	} 
+
+// Constraining Out-degree
+	b = 0;
+	
+	while (arr1_out[a] > out_degree && b < nodes) {
+		while (a == b) {
+			b += 1;
+		}
+		if (G->IsEdge(a,b) && arr1[b] > 1){
+        		G->DelEdge(a,b);
+			arr1_out[a] -=1;
+			arr1_in[b] -=1;
+			arr1[b] -=1;
+			arr1[a] -=1;
+			messages -=1;	
+		}
+		b += 1;
+	}   
+  }
+/*
+// Making sure graph remains connected
+
+// Iterating to consider all nodes
+  for (TNGraph::TNodeI NI = G->BegNI(); NI < G->EndNI(); NI++) {
+   
+  	a = NI.GetId();
+	b = 0;
+
+
+// Constraining Out-degree
+	
+	while (a != 0 && arr1_out[a] == 0 && b < nodes) {
+		while (a == b) {
+			b += 1;
+		}
+
+		if (!(G->IsEdge(a,b)) && !(G->IsEdge(b,a)) && arr1_in[b] < in_degree){
+			G->AddEdge(a,b);
+			arr1_out[a] +=1;
+			arr1_in[b] +=1;
+			arr1[b] +=1;
+			arr1[a] +=1;
+			messages +=1;	
+		}
+		b += 1;
+	}   
+  }
+
+*/
+//Ensuring total messages = no.of nodes
+
+//Adding messages
+  while (messages < total_messages_reqd) {
+	
+  	a = rand()%nodes;
+  	b = rand()%nodes;
+    	
+  	while (a == b) {
+    		b = rand()%nodes;	
+    	}
+  	if (a != 0 && !(G->IsEdge(a,b)) && !(G->IsEdge(b,a)) && arr1_in[b] < in_degree && arr1_out[a] < out_degree){
+		G->AddEdge(a,b);
+		arr1_out[a] +=1;
+		arr1_in[b] +=1;
+		arr1[b] +=1;
+		arr1[a] +=1;
+		messages +=1;	
+	}	
+   
+  }
+
+//Removing messages
+  while (messages > total_messages_reqd) {
+	
+  	a = rand()%nodes;
+  	b = rand()%nodes;
+
+  	while (a == b) {
+    		b = rand()%nodes;	
+    	}
+  	if (G->IsEdge(a,b) && arr1[b] > 1 && arr1[a] > 1){
+		G->DelEdge(a,b);
+		arr1_out[a] -=1;
+		arr1_in[b] -=1;
+		arr1[b] -=1;
+		arr1[a] -=1;
+		messages -=1;	
+	}	 
+  }
+
+
+  cout<< "Total messages final= "<< messages<< " \n";
+
+
+
+----old-----
+for (TNGraph::TNodeI NI = G->BegNI(); NI < G->EndNI(); NI++) {
+   
+    int a = NI.GetId(); 
+    int in_degree = 0;
+    int out_degree = 0;
+    
+    for (int i = nodes-1; i >= 0; i--) {
+   
+// Controlling to and fro edge
+
+        if (G->IsEdge(a,i) && G->IsEdge(i,a)) {
+            G->DelEdge(i,a);
+        }
+
+// Controlling In-degree 
+
+        if (G->IsEdge(i,a)) {
+	    
+            in_degree +=1;
+        
+            if (in_degree > 3) {
+                G->DelEdge(i,a);
+                in_degree -=1;
+            }
+        } 
+ 
+// Controlling Out-degree 
+
+        if (G->IsEdge(a,i)) {
+        
+            out_degree +=1;
+       
+            if (out_degree > 3) {
+                G->DelEdge(a,i);
+                out_degree -=1;
+            }
+        }  
+  
+    }
+  
+}
+  
+  
+// Controlling no.of messages
+
+int no_messages = 0;
+
+for (TNGraph::TNodeI NI = G->BegNI(); NI < G->EndNI(); NI++) {
+  		
+    int a = NI.GetId();
+
+    for (int i = nodes-1; i >= 0; i--) {
+
+        if (G->IsEdge(i,a)) {
+            no_messages +=1;
+        }  
+
+
+        if (no_messages > nodes) {
+            G->DelEdge(i,a);
+            no_messages -=1;
+        }   
+    }
+  
+}

@@ -1,0 +1,21 @@
+graph G {
+  graph [splines=true overlap=false]
+  node  [shape=ellipse, width=0.3, height=0.3]
+  0 [label="0 sw"];
+  3 [label="1 es"];
+  4 [label="2 es"];
+  1 [label="3 sw"];
+  5 [label="4 es"];
+  6 [label="5 es"];
+  2 [label="6 sw"];
+  7 [label="7 es"];
+  8 [label="8 es"];
+  0 -- 1;
+  0 -- 3;
+  0 -- 4;
+  1 -- 2;
+  1 -- 5;
+  1 -- 6;
+  2 -- 7;
+  2 -- 8;
+}

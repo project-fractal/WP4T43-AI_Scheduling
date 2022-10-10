@@ -1,0 +1,11 @@
+10-> Jobs/Tasks
+100 -> No. of Scenerios
+bus
+3 -> es(on how many Switches we want to have end systems)
+2 -> min number of end system (on each SW)
+2 -> max number of end system (on each SW)
+3 -> sw(Routers or Switches) rows (Mesh or Bus)
+3 -> sw(Routers or Switches) column (Mesh)
+
+-enter bus or grid in 3rd line.
+-to get switches or routers we need to enter number in 5the line for rows and in 6the line columns. if bus topology is selected column input is ignored.

@@ -1,0 +1,20 @@
+[Project ID]
+Signature=UE Proj: v.1
+[Project Information]
+Use Relative Directory=1
+Relative to Project File=1
+Include Sub Directories=1
+Project Tagfile=
+Project Wordfile=
+Project TpFile=
+Filter=
+Create Tagfile=0
+[Files]
+0=gen_logical.cpp
+1=gen_logical.h
+2=gen_physical.cpp
+3=gen_physical.h
+4=sosgen.cpp
+5=Makefile
+6=graph_aux.cpp
+7=graph_aux.h

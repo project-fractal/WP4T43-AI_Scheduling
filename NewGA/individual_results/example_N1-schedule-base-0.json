@@ -1,0 +1,395 @@
+{
+  "JPO": [],
+  "energy": 0.0,
+  "jobs": [
+    {
+      "can_run_on": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "deadline": 10000,
+      "frequency": 0,
+      "id": 0,
+      "position": 7,
+      "runs_on": 4,
+      "start_time": 250,
+      "wcet": 92,
+      "wcet_with_compression": 92,
+      "weight": 5
+    },
+    {
+      "can_run_on": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "deadline": 10000,
+      "frequency": 0,
+      "id": 1,
+      "position": 9,
+      "runs_on": 5,
+      "start_time": 324,
+      "wcet": 10,
+      "wcet_with_compression": 10,
+      "weight": 2
+    },
+    {
+      "can_run_on": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "deadline": 10000,
+      "frequency": 0,
+      "id": 2,
+      "position": 8,
+      "runs_on": 5,
+      "start_time": 315,
+      "wcet": 9,
+      "wcet_with_compression": 9,
+      "weight": 4
+    },
+    {
+      "can_run_on": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "deadline": 10000,
+      "frequency": 0,
+      "id": 3,
+      "position": 6,
+      "runs_on": 4,
+      "start_time": 151,
+      "wcet": 99,
+      "wcet_with_compression": 99,
+      "weight": 6
+    },
+    {
+      "can_run_on": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "deadline": 10000,
+      "frequency": 0,
+      "id": 4,
+      "position": 2,
+      "runs_on": 5,
+      "start_time": 23,
+      "wcet": 21,
+      "wcet_with_compression": 21,
+      "weight": 4
+    },
+    {
+      "can_run_on": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "deadline": 10000,
+      "frequency": 0,
+      "id": 5,
+      "position": 4,
+      "runs_on": 4,
+      "start_time": 70,
+      "wcet": 79,
+      "wcet_with_compression": 79,
+      "weight": 3
+    },
+    {
+      "can_run_on": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "deadline": 10000,
+      "frequency": 0,
+      "id": 6,
+      "position": 5,
+      "runs_on": 5,
+      "start_time": 107,
+      "wcet": 14,
+      "wcet_with_compression": 14,
+      "weight": 1
+    },
+    {
+      "can_run_on": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "deadline": 10000,
+      "frequency": 0,
+      "id": 7,
+      "position": 1,
+      "runs_on": 4,
+      "start_time": 0,
+      "wcet": 70,
+      "wcet_with_compression": 70,
+      "weight": 6
+    },
+    {
+      "can_run_on": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "deadline": 10000,
+      "frequency": 0,
+      "id": 8,
+      "position": 1,
+      "runs_on": 5,
+      "start_time": 0,
+      "wcet": 23,
+      "wcet_with_compression": 23,
+      "weight": 9
+    },
+    {
+      "can_run_on": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "deadline": 10000,
+      "frequency": 0,
+      "id": 9,
+      "position": 3,
+      "runs_on": 5,
+      "start_time": 44,
+      "wcet": 63,
+      "wcet_with_compression": 63,
+      "weight": 4
+    }
+  ],
+  "makespan": 342,
+  "messages": [
+    {
+      "aarival_time": 324,
+      "compressed_size": 16,
+      "id": 0,
+      "injection_time": 324,
+      "receiver": 1,
+      "route": [],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 2,
+      "size": 16,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 250,
+      "compressed_size": 23,
+      "id": 1,
+      "injection_time": 250,
+      "receiver": 0,
+      "route": [],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 3,
+      "size": 23,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 334,
+      "compressed_size": 21,
+      "id": 2,
+      "injection_time": 250,
+      "receiver": 1,
+      "route": [
+        4,
+        3,
+        5
+      ],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 3,
+      "size": 21,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 359,
+      "compressed_size": 22,
+      "id": 3,
+      "injection_time": 271,
+      "receiver": 2,
+      "route": [
+        4,
+        3,
+        5
+      ],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 3,
+      "size": 22,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 44,
+      "compressed_size": 25,
+      "id": 4,
+      "injection_time": 44,
+      "receiver": 1,
+      "route": [],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 4,
+      "size": 25,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 44,
+      "compressed_size": 16,
+      "id": 5,
+      "injection_time": 44,
+      "receiver": 2,
+      "route": [],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 4,
+      "size": 16,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 144,
+      "compressed_size": 25,
+      "id": 6,
+      "injection_time": 44,
+      "receiver": 3,
+      "route": [
+        5,
+        3,
+        4
+      ],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 4,
+      "size": 25,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 44,
+      "compressed_size": 19,
+      "id": 7,
+      "injection_time": 44,
+      "receiver": 6,
+      "route": [],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 4,
+      "size": 19,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 149,
+      "compressed_size": 17,
+      "id": 8,
+      "injection_time": 149,
+      "receiver": 3,
+      "route": [],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 5,
+      "size": 17,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 202,
+      "compressed_size": 17,
+      "id": 9,
+      "injection_time": 134,
+      "receiver": 0,
+      "route": [
+        5,
+        3,
+        4
+      ],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 6,
+      "size": 17,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 70,
+      "compressed_size": 22,
+      "id": 10,
+      "injection_time": 70,
+      "receiver": 5,
+      "route": [],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 7,
+      "size": 22,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 91,
+      "compressed_size": 17,
+      "id": 11,
+      "injection_time": 23,
+      "receiver": 5,
+      "route": [
+        5,
+        3,
+        4
+      ],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 8,
+      "size": 17,
+      "timetriggered": true
+    },
+    {
+      "aarival_time": 195,
+      "compressed_size": 22,
+      "id": 12,
+      "injection_time": 107,
+      "receiver": 3,
+      "route": [
+        5,
+        3,
+        4
+      ],
+      "route_idx": 0,
+      "scheme_idx": 0,
+      "sender": 9,
+      "size": 22,
+      "timetriggered": true
+    }
+  ],
+  "slacks": [],
+  "uid": 0,
+  "valid": true
+}

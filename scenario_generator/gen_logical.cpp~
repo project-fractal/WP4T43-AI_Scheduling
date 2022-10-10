@@ -1,0 +1,148 @@
+#include <iostream>
+#include <fstream>
+#include <queue>
+#include <map>
+#include <assert.h>
+#include "stdafx.h"
+#include "gen_logical.h"
+#include "gen_physical.h"
+#include "graph_aux.h"
+#include "mxdag.h"
+
+
+void MergeIntoNoName(PNGraph TargetG, PNGraph G2, int offset) {
+  
+  for (TNGraph::TNodeI NI = G2->BegNI(); NI < G2->EndNI(); NI++) {
+  	int id = offset+NI.GetId();
+  	TargetG->AddNode(id);
+  }
+  
+  //traverse the edges
+  for (TNGraph::TEdgeI EI = G2->BegEI(); EI < G2->EndEI(); EI++) {
+    TargetG->AddEdge(offset+EI.GetSrcNId(), offset+EI.GetDstNId());    	         
+  }
+}
+
+//PNGraph: a directed graph;
+
+void generate_dag(PNGraph &G,std::vector<int> &ss,int nodes) {
+
+  float f = 0;
+  G  = TSnap::GenForestFire(nodes, 0.35 + f , 0.35 + f);  
+  for (TNGraph::TNodeI NI = G->BegNI(); NI < G->EndNI(); NI++) {
+  	//int id = offset+;
+  	//TargetG->AddNode(id);
+  	ss.push_back(NI.GetId());
+  }
+}
+
+void CreateApps(application &app, str_logical_structure_parameters &logical) {
+	
+   for (int i=0;i<logical.apps;i++) {
+   	
+   	 int subsystem_index = 0;
+   	 int id_offset = 0;	
+   	 int id_rnd_src = 0;
+   	 int id_rnd_dst = 0;
+   	 int skipe_edge;
+   	 PNGraph app_highlevel_graph = TSnap::GenRndGnm<PNGraph>(logical.app_N_Top, logical.app_M_Top, true);
+		 app.G.push_back(  TNGraph::New() );
+		  
+		 app.info.push_back( app_info() ); 
+
+     // copy ID nodes
+	   for (TNGraph::TNodeI NI = app_highlevel_graph->BegNI(); NI < app_highlevel_graph->EndNI(); NI++) {  	 
+		     	  	  	   	  			
+  	   	PNGraph subsystem_graph; 
+  	   	app.info[i].ss.push_back( subsystem() );
+  	    generate_dag(subsystem_graph,app.info[i].ss[subsystem_index].node,logical.ss_nodes);
+	   	  	
+  	  	for (unsigned int n=0;n<app.info[i].ss[subsystem_index].node.size();n++) 
+				  app.info[i].ss[subsystem_index].node[n] += id_offset;
+
+	   	  subsystem_index++;
+	   	  	   	 	   	
+		    skipe_edge = 1;
+		    if ((app.G[i]->GetNodes()>0) && (subsystem_graph->GetNodes()>0)) {		   	
+		    	skipe_edge = 0;
+			    id_rnd_src = app.G[i]->GetRndNId();	   	  
+	   	    id_rnd_dst = subsystem_graph->GetRndNId();	   	  
+	   	  }
+	   	
+	   	  std::cout << "1";
+	   	  //subsystem_graph,app.info[i].ss[subsystem_index].offset = id_offset;
+		    MergeIntoNoName(app.G[i], subsystem_graph, id_offset );
+
+		    
+		    if (!skipe_edge) {
+		      app.G[i]->AddEdge(id_rnd_src,id_rnd_dst+id_offset);
+		      
+		      for (int ss=0;ss<subsystem_index;ss++) 
+		      	for (unsigned int x=0;x<app.info[i].ss[ss].node.size();x++) {
+		      	  if (app.info[i].ss[ss].node[x] == id_rnd_src) {
+		      		 // found other linked subsystem		      				      		 
+		      		 if (ss==subsystem_index-1) {
+		      		 	  printf("error: cross-subsystem connection within the same subsystem\n");
+		      		 	  exit(2);
+		      	  }
+		      		 app.info[i].ss[subsystem_index-1].incoming_borderlines_nodes.push_back(id_rnd_src); // borderline_node(ss,id_rnd_src)
+		      		 app.info[i].ss[ss].outgoing_borderlines_nodes.push_back(id_rnd_dst+id_offset); // borderline_node(subsystem_index-1,id_rnd_dst)
+		         	}		      			      			      	
+		        }		      		    
+		    }
+		    
+		    id_offset += app.G[i]->GetMxNId();   	   	 		  		    
+		    
+     }	   	 	       
+     
+     // establish map
+     for (unsigned int ss=0;ss<app.info[i].ss.size() ;ss++) 
+       for (unsigned int x=0;x<app.info[i].ss[ss].node.size();x++) {
+       	  app.info[i].node_ss_map[ app.info[i].ss[ss].node[x] ]   = ss;
+       }
+  }
+}
+
+
+void Apps_Vis(application &app) {
+  
+  char filename[32];
+  
+  for (unsigned int a=0;a<app.G.size();a++) {
+
+
+  std::ofstream myfile;  	
+  sprintf(filename,"graphs/logical%d.txt",a);	  	
+  myfile.open (filename);
+  
+  myfile << "digraph G {\n";
+
+  for (unsigned int i=0;i<app.info[a].ss.size();i++) {
+  	
+  	myfile << "  subgraph cluster_ss" << i << " {\n";  	  	
+  	//myfile << "  style=filled;color=lightgrey;node [style=filled,color=blue];\n";		  	
+  	myfile << "  label=\"Subsystem " << i << "\";\n";
+  	
+  	unsigned int components =  app.info[a].ss[i].node.size();
+  	
+  	for (unsigned int n=0;n<components;n++) { 
+  		myfile << "  N" << app.info[a].ss[i].node[n] << " [label=\"Service" << i << "/" << n << "|" << app.info[a].ss[i].node[n] << "\"]; \n";
+    }   		
+	  myfile << "  }\n";  	  	    	
+  }
+  
+  
+  // conntect IDs for each edge in SoS_Graph
+  
+  for (TNGraph::TEdgeI EI = app.G[a]->BegEI(); EI < app.G[a]->EndEI(); EI++) {
+    myfile << "N" << EI.GetSrcNId() << "->" << "N" << EI.GetDstNId() << "\n"; 
+  }	 	  
+   
+  myfile << "}\n"; 	     
+  myfile.close();	
+ 
+  }
+}
+	
+	
+

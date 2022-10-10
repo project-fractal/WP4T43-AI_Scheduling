@@ -1,0 +1,81 @@
+digraph G {
+  subgraph cluster_ss0 {
+  label="Subsystem 0";
+  N0 [label="Service0/0|0"]; 
+  N1 [label="Service0/1|1"]; 
+  N2 [label="Service0/2|2"]; 
+  N3 [label="Service0/3|3"]; 
+  N4 [label="Service0/4|4"]; 
+  N5 [label="Service0/5|5"]; 
+  }
+  subgraph cluster_ss1 {
+  label="Subsystem 1";
+  N6 [label="Service1/0|6"]; 
+  N7 [label="Service1/1|7"]; 
+  N8 [label="Service1/2|8"]; 
+  N9 [label="Service1/3|9"]; 
+  N10 [label="Service1/4|10"]; 
+  N11 [label="Service1/5|11"]; 
+  }
+  subgraph cluster_ss2 {
+  label="Subsystem 2";
+  N18 [label="Service2/0|18"]; 
+  N19 [label="Service2/1|19"]; 
+  N20 [label="Service2/2|20"]; 
+  N21 [label="Service2/3|21"]; 
+  N22 [label="Service2/4|22"]; 
+  N23 [label="Service2/5|23"]; 
+  }
+  subgraph cluster_ss3 {
+  label="Subsystem 3";
+  N42 [label="Service3/0|42"]; 
+  N43 [label="Service3/1|43"]; 
+  N44 [label="Service3/2|44"]; 
+  N45 [label="Service3/3|45"]; 
+  N46 [label="Service3/4|46"]; 
+  N47 [label="Service3/5|47"]; 
+  }
+  subgraph cluster_ss4 {
+  label="Subsystem 4";
+  N90 [label="Service4/0|90"]; 
+  N91 [label="Service4/1|91"]; 
+  N92 [label="Service4/2|92"]; 
+  N93 [label="Service4/3|93"]; 
+  N94 [label="Service4/4|94"]; 
+  N95 [label="Service4/5|95"]; 
+  }
+N0->N11
+N1->N0
+N2->N1
+N3->N2
+N4->N2
+N4->N3
+N4->N93
+N5->N1
+N5->N22
+N6->N44
+N7->N6
+N8->N7
+N9->N7
+N9->N8
+N10->N9
+N11->N7
+N19->N18
+N20->N18
+N20->N19
+N21->N18
+N22->N19
+N23->N20
+N43->N42
+N44->N43
+N45->N42
+N46->N43
+N47->N43
+N47->N45
+N91->N90
+N92->N90
+N93->N91
+N94->N91
+N95->N90
+N95->N91
+}
